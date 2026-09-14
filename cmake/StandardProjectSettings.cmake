@@ -1,11 +1,12 @@
-# Global compiler/toolchain defaults, plus the two INTERFACE targets that all first-party
-# targets link against (z3d_project_warnings for warning flags, z3d_project_options for
-# the language level, warnings and sanitizers).
+# Global compiler/toolchain defaults, plus the two INTERFACE targets that all
+# first-party targets link against (z3d_project_warnings for warning flags,
+# z3d_project_options for the language level, warnings and sanitizers).
 include_guard(GLOBAL)
 
 include(GNUInstallDirs)
 include(CompilerWarnings)
 include(Sanitizers)
+include(Coverage)
 
 # ---------------------------------------------------------------------------
 # Sensible defaults
@@ -21,8 +22,8 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
 	set(CMAKE_BUILD_TYPE
 		Debug
 		CACHE STRING "Build type" FORCE)
-	set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS Debug Release RelWithDebInfo
-												 MinSizeRel)
+	set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS Debug Release
+												 RelWithDebInfo MinSizeRel)
 endif()
 
 # Put every runtime/build artifact in predictable top-level folders.
@@ -30,8 +31,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 
-# Common places to find LLVM tools (clang-tidy, clang-format) when they are not on PATH -
-# e.g. Homebrew keeps LLVM keg-only.
+# Common places to find LLVM tools (clang-tidy, clang-format) when they are not
+# on PATH - e.g. Homebrew keeps LLVM keg-only.
 set(Z3D_LLVM_TOOL_HINTS
 	/opt/homebrew/opt/llvm/bin /usr/local/opt/llvm/bin /usr/lib/llvm-19/bin
 	/usr/lib/llvm-18/bin
@@ -76,7 +77,8 @@ add_library(z3d::warnings ALIAS z3d_project_warnings)
 add_library(z3d_project_options INTERFACE)
 add_library(z3d::options ALIAS z3d_project_options)
 
-target_compile_features(z3d_project_options INTERFACE cxx_std_${Z3D_CXX_STANDARD})
+target_compile_features(z3d_project_options
+						INTERFACE cxx_std_${Z3D_CXX_STANDARD})
 target_link_libraries(z3d_project_options INTERFACE z3d_project_warnings)
 
 if(Z3D_WARNINGS_AS_ERRORS)
@@ -85,3 +87,4 @@ else()
 	z3d_set_warnings(z3d_project_warnings)
 endif()
 z3d_enable_sanitizers(z3d_project_options)
+z3d_enable_coverage(z3d_project_options)

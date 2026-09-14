@@ -2,7 +2,7 @@
 # Bring up the local Conan configuration for z3dsw.
 #
 #   * creates a project-local virtualenv (./.venv) via uv (preferred) or python -m venv
-#   * installs Conan, cmake-format, pre-commit and shellcheck (via uv or pip) and verifies they are on PATH
+#   * installs Conan, cmake-format, pre-commit, shellcheck and gcovr (via uv or pip) and verifies they are on PATH
 #   * detects a Conan profile and ensures the conancenter remote
 #   * creates/updates the committed lockfile (conan.lock)
 #   * installs the Debug and Release configurations into build/conan/<Config>
@@ -23,7 +23,7 @@ if ! command -v "$PYTHON" >/dev/null 2>&1; then
     exit 1
 fi
 
-TOOLING=("conan>=2.4" "cmake-format>=0.6" "pre-commit>=3.7" "shellcheck-py>=0.10")
+TOOLING=("conan>=2.4" "cmake-format>=0.6" "pre-commit>=3.7" "shellcheck-py>=0.10" "gcovr>=7")
 
 if command -v uv >/dev/null 2>&1; then
     echo ">> creating/updating virtualenv at $VENV (uv)"
@@ -46,7 +46,7 @@ else
     python -m pip install --quiet --upgrade "${TOOLING[@]}"
 fi
 
-for TOOL in conan cmake-format pre-commit shellcheck; do
+for TOOL in conan cmake-format pre-commit shellcheck gcovr; do
     if ! command -v "$TOOL" >/dev/null 2>&1; then
         echo "error: '$TOOL' not found on PATH after installing tooling" >&2
         exit 1

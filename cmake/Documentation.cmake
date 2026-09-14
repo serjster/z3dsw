@@ -1,8 +1,8 @@
-# Documentation targets. docs-doxygen : generate HTML + XML (XML feeds Sphinx/Breathe)
-# docs-lint    : run Doxygen with WARN_AS_ERROR=YES -> fails on doc warnings docs-sphinx :
-# build the Sphinx site (needs docs/requirements.txt installed) docs         : build the
-# "best available" documentation All targets degrade gracefully when the underlying tool
-# is not installed.
+# Documentation targets. docs-doxygen : generate HTML + XML (XML feeds
+# Sphinx/Breathe) docs-lint    : run Doxygen with WARN_AS_ERROR=YES -> fails on
+# doc warnings docs-sphinx : build the Sphinx site (needs docs/requirements.txt
+# installed) docs         : build the "best available" documentation All targets
+# degrade gracefully when the underlying tool is not installed.
 include_guard(GLOBAL)
 
 set(_z3d_docs_src "${CMAKE_CURRENT_SOURCE_DIR}/docs")
@@ -28,7 +28,8 @@ if(DOXYGEN_FOUND)
 	set(Z3D_DOXYGEN_GENERATE_XML "YES")
 	set(Z3D_DOXYGEN_WARN_AS_ERROR "NO")
 	set(Z3D_DOXYGEN_WARN_LOGFILE "")
-	configure_file("${_z3d_docs_src}/Doxyfile.in" "${_z3d_docs_bin}/Doxyfile" @ONLY)
+	configure_file("${_z3d_docs_src}/Doxyfile.in" "${_z3d_docs_bin}/Doxyfile"
+				   @ONLY)
 
 	add_custom_target(
 		docs-doxygen
@@ -43,19 +44,22 @@ if(DOXYGEN_FOUND)
 	set(Z3D_DOXYGEN_GENERATE_XML "NO")
 	set(Z3D_DOXYGEN_WARN_AS_ERROR "YES")
 	set(Z3D_DOXYGEN_WARN_LOGFILE "")
-	configure_file("${_z3d_docs_src}/Doxyfile.in" "${_z3d_docs_bin}/Doxyfile.lint" @ONLY)
+	configure_file("${_z3d_docs_src}/Doxyfile.in"
+				   "${_z3d_docs_bin}/Doxyfile.lint" @ONLY)
 
 	add_custom_target(
 		docs-lint
 		COMMAND "${DOXYGEN_EXECUTABLE}" "${_z3d_docs_bin}/Doxyfile.lint"
 		WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-		COMMENT "z3dsw: linting documentation comments (Doxygen, warnings are errors)"
+		COMMENT
+			"z3dsw: linting documentation comments (Doxygen, warnings are errors)"
 		VERBATIM)
 
 	set(_z3d_docs_default docs-doxygen)
 else()
-	message(WARNING "z3dsw: Doxygen not found; docs-doxygen/docs-lint disabled. "
-					"Install with 'brew install doxygen' or 'apt install doxygen'.")
+	message(
+		WARNING "z3dsw: Doxygen not found; docs-doxygen/docs-lint disabled. "
+				"Install with 'brew install doxygen' or 'apt install doxygen'.")
 endif()
 
 # --- Sphinx -----------------------------------------------------------------
@@ -68,8 +72,10 @@ if(Z3D_SPHINX_BUILD AND DOXYGEN_FOUND)
 	set(_z3d_sphinx_bin "${_z3d_docs_bin}/sphinx")
 	add_custom_target(
 		docs-sphinx
-		COMMAND "${CMAKE_COMMAND}" -E env DOXYGEN_XML_DIR=${_z3d_doxy_dir}/xml
-				"${Z3D_SPHINX_BUILD}" -b html "${_z3d_docs_src}" "${_z3d_sphinx_bin}/html"
+		COMMAND
+			"${CMAKE_COMMAND}" -E env DOXYGEN_XML_DIR=${_z3d_doxy_dir}/xml
+			"${Z3D_SPHINX_BUILD}" -b html "${_z3d_docs_src}"
+			"${_z3d_sphinx_bin}/html"
 		DEPENDS docs-doxygen
 		WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
 		COMMENT "z3dsw: building Sphinx site -> ${_z3d_sphinx_bin}/html"

@@ -1,15 +1,15 @@
 add_library(
 	znx
 	SHARED
-	include/znx/alias.hh
-	include/znx/vec.hh
+	include/znx/linalg.hh
+	include/znx/types.hh
 	include/znx/Vec3.hh
 	znx/Vec3.cc)
 add_library(znx::znx ALIAS znx)
 
-# Generate the dllexport/visibility export header (modern CMake style). Consumers and the
-# library itself define ZNX_STATIC_DEFINE for static builds, which makes ZNX_EXPORT expand
-# to nothing.
+# Generate the dllexport/visibility export header (modern CMake style).
+# Consumers and the library itself define ZNX_STATIC_DEFINE for static builds,
+# which makes ZNX_EXPORT expand to nothing.
 include(GenerateExportHeader)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/include/znx)
 generate_export_header(
@@ -34,8 +34,8 @@ target_include_directories(
 		   $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/include>
 		   $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 
-# Inherit language level, warnings, sanitizers, etc. Build-only: the helper interface
-# targets are not part of the installed/exported package.
+# Inherit language level, warnings, sanitizers, etc. Build-only: the helper
+# interface targets are not part of the installed/exported package.
 target_link_libraries(znx PRIVATE $<BUILD_INTERFACE:z3d_project_options>)
 
 set_target_properties(

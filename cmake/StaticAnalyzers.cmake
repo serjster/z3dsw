@@ -1,6 +1,6 @@
-# Wires clang-tidy and/or cppcheck into the build via the standard CMAKE_CXX_CLANG_TIDY /
-# CMAKE_CXX_CPPCHECK hooks. Must be included BEFORE any target is declared so the
-# analyzers run as part of compilation.
+# Wires clang-tidy and/or cppcheck into the build via the standard
+# CMAKE_CXX_CLANG_TIDY / CMAKE_CXX_CPPCHECK hooks. Must be included BEFORE any
+# target is declared so the analyzers run as part of compilation.
 include_guard(GLOBAL)
 
 if(Z3D_ENABLE_CLANG_TIDY)
@@ -17,9 +17,11 @@ if(Z3D_ENABLE_CLANG_TIDY)
 		message(STATUS "z3dsw: clang-tidy -> ${Z3D_CLANG_TIDY}")
 	else()
 		message(
-			WARNING "z3dsw: Z3D_ENABLE_CLANG_TIDY=ON but clang-tidy was not found. "
-					"Install it (e.g. 'brew install llvm' or 'apt install clang-tidy') "
-					"or point CMake at it with -DZ3D_CLANG_TIDY=/path/to/clang-tidy.")
+			WARNING
+				"z3dsw: Z3D_ENABLE_CLANG_TIDY=ON but clang-tidy was not found. "
+				"Install it (e.g. 'brew install llvm' or 'apt install clang-tidy') "
+				"or point CMake at it with -DZ3D_CLANG_TIDY=/path/to/clang-tidy."
+		)
 	endif()
 endif()
 
@@ -36,6 +38,7 @@ if(Z3D_ENABLE_CPPCHECK)
 			--quiet)
 		message(STATUS "z3dsw: cppcheck -> ${Z3D_CPPCHECK}")
 	else()
-		message(WARNING "z3dsw: Z3D_ENABLE_CPPCHECK=ON but cppcheck was not found.")
+		message(
+			WARNING "z3dsw: Z3D_ENABLE_CPPCHECK=ON but cppcheck was not found.")
 	endif()
 endif()

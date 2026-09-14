@@ -1,5 +1,5 @@
-# z3d_set_warnings(<target> [WARNINGS_AS_ERRORS]) Populates an INTERFACE target with a
-# curated, portable warning set.
+# z3d_set_warnings(<target> [WARNINGS_AS_ERRORS]) Populates an INTERFACE target
+# with a curated, portable warning set.
 include_guard(GLOBAL)
 
 function(z3d_set_warnings target)
@@ -26,12 +26,12 @@ function(z3d_set_warnings target)
 
 	# GCC-only diagnostics (Clang would reject these).
 	set(gcc_only_warnings
-		-Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op
-		-Wuseless-cast -Wnull-dereference)
+		-Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches
+		-Wlogical-op -Wuseless-cast -Wnull-dereference)
 
-	# Clang-only diagnostics. Anonymous structs/unions are an intentional, widely used
-	# idiom for named vector components (see Vec3), so the extension warnings they trigger
-	# are disabled project-wide.
+	# Clang-only diagnostics. Anonymous structs/unions are an intentional,
+	# widely used idiom for named vector components (see Vec3), so the extension
+	# warnings they trigger are disabled project-wide.
 	set(clang_only_warnings -Wweak-vtables -Wno-gnu-anonymous-struct
 							-Wno-nested-anon-types)
 
@@ -43,8 +43,8 @@ function(z3d_set_warnings target)
 		/w14263
 		/w14265
 		/w14287
-		/wd4201 # anonymous structs/unions: intentional idiom for named vector components
-		# (see Vec3)
+		/wd4201 # anonymous structs/unions: intentional idiom for named vector
+		# components (see Vec3)
 		/we4289
 		/w14296
 		/w14311

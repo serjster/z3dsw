@@ -2,7 +2,7 @@
 # Used by the `format` / `format-check` / `cmake-lint` CMake targets.
 # Docs: https://cmake-format.readthedocs.io
 with section("format"):
-    line_width = 90
+    line_width = 80
     tab_size = 4
     use_tabchars = True
     line_ending = "unix"

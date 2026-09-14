@@ -1,12 +1,17 @@
 #pragma once
 
 #include <cmath>
+#include <concepts>
 #include <cstddef>
 #include <cstdint>
 #include <limits>
 #include <numbers>
+#include <type_traits>
+#include <utility>
 
 namespace znx {
+
+/* ---- aliases ---- */
 // NOLINTBEGIN(readability-identifier-naming)
 
 using u8 = std::uint8_t;
@@ -79,4 +84,19 @@ template <typename T>
 [[nodiscard]] constexpr f32 RAD2DEG(f32 rad) { return rad * (180.0F / PI); }
 
 // NOLINTEND(readability-identifier-naming)
+
+/* ---- casts ---- */
+// Short, type-safe replacement for static_cast<>: cast<f32>(x), cast<i32>(y), ...
+// (GSL calls this narrow_cast; it is value-preserving only if the target can hold it.)
+template <typename To, typename From>
+[[nodiscard]] constexpr To cast(From&& from) {
+	return static_cast<To>(std::forward<From>(from));
+}
+
+/* ---- concepts ---- */
+template <typename T>
+concept VectorLike = requires(const T& v, size_t i) {
+	{ v.size() } -> std::convertible_to<size_t>;
+	requires std::floating_point<std::remove_cvref_t<decltype(v[i])>>;
+};
 } // namespace znx

@@ -1,6 +1,6 @@
 # z3d_enable_sanitizers(<target>) Applies the sanitizers selected via
-# Z3D_ENABLE_SANITIZER_* options to an INTERFACE target (so the flags propagate to
-# everything that links it).
+# Z3D_ENABLE_SANITIZER_* options to an INTERFACE target (so the flags propagate
+# to everything that links it).
 include_guard(GLOBAL)
 
 function(z3d_enable_sanitizers target)
@@ -62,8 +62,8 @@ function(z3d_enable_sanitizers target)
 					"z3dsw: MSVC only supports AddressSanitizer; ignoring other sanitizers "
 					"(requested: ${_sanitize_arg})")
 		endif()
-		target_compile_options(${target}
-							   INTERFACE $<$<CXX_COMPILER_ID:MSVC>:/fsanitize=address>)
+		target_compile_options(
+			${target} INTERFACE $<$<CXX_COMPILER_ID:MSVC>:/fsanitize=address>)
 		message(STATUS "z3dsw: sanitizers -> address (MSVC)")
 		return()
 	endif()
@@ -83,6 +83,8 @@ function(z3d_enable_sanitizers target)
 	)
 
 	message(STATUS "z3dsw: sanitizers -> ${_sanitize_arg}")
-	message(STATUS "z3dsw: tip: set UBSAN_OPTIONS=print_stacktrace=1:halt_on_error=1 "
-				   "and ASAN_OPTIONS=detect_leaks=1 at runtime for better reports")
+	message(
+		STATUS
+			"z3dsw: tip: set UBSAN_OPTIONS=print_stacktrace=1:halt_on_error=1 "
+			"and ASAN_OPTIONS=detect_leaks=1 at runtime for better reports")
 endfunction()
