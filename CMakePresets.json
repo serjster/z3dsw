@@ -21,13 +21,14 @@
     },
     {
       "name": "dev",
-      "displayName": "Dev (Debug + clang-tidy + ASan/UBSan)",
-      "description": "Debug build with clang-tidy and Address/UndefinedBehavior sanitizers enabled.",
+      "displayName": "Dev (Debug + clang-tidy + ASan/UBSan + coverage)",
+      "description": "Debug build with clang-tidy, Address/UndefinedBehavior sanitizers and coverage; running the tests writes an HTML coverage report to build/dev/coverage-report/index.html.",
       "inherits": "base",
       "toolchainFile": "${sourceDir}/build/conan/Debug/conan_toolchain.cmake",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "Z3D_ENABLE_CLANG_TIDY": "ON",
+        "Z3D_ENABLE_COVERAGE": "ON",
         "Z3D_ENABLE_SANITIZER_ADDRESS": "ON",
         "Z3D_ENABLE_SANITIZER_UNDEFINED": "ON"
       }

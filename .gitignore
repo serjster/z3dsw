@@ -15,6 +15,7 @@ compile_commands.json
 *.conan
 
 # --- Python / tooling ------------------------------------------------------
+venv/
 .venv/
 .venv-docs/
 __pycache__/

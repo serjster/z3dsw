@@ -8,7 +8,7 @@ BasedOnStyle: LLVM
 UseTab: Always
 TabWidth: 4
 IndentWidth: 4
-ColumnLimit: 120
+ColumnLimit: 90
 AccessModifierOffset: -4
 NamespaceIndentation: None
 PointerAlignment: Left
