@@ -1,12 +1,11 @@
 cmake_minimum_required(VERSION 3.25)
 
 project(
-    z3dsw
-    VERSION 0.1.0
-    DESCRIPTION "znx-sw-3d - an educational software 3d rendering engine"
-    HOMEPAGE_URL "https://example.com/z3dsw"
-    LANGUAGES CXX
-)
+	z3dsw
+	VERSION 0.1.0
+	DESCRIPTION "znx-sw-3d - an educational software 3d rendering engine"
+	HOMEPAGE_URL "https://example.com/z3dsw"
+	LANGUAGES CXX)
 
 # "include" path for CMake
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
@@ -21,20 +20,20 @@ include(StaticAnalyzers)
 
 # "format" build target
 if(Z3D_ENABLE_FORMAT)
-    include(Formatting)
-    z3d_add_format_targets()
+	include(Formatting)
+	z3d_add_format_targets()
 endif()
 
 add_subdirectory(src)
 add_subdirectory(apps/z3dsw)
 
 if(Z3D_ENABLE_TESTING)
-    enable_testing()
-    add_subdirectory(tests)
+	enable_testing()
+	add_subdirectory(tests)
 endif()
 
 if(Z3D_ENABLE_DOCS)
-    include(Documentation)
+	include(Documentation)
 endif()
 
 # ---------------------------------------------------------------------------

@@ -1,0 +1,20 @@
+# <Prefix>: <imperative subject>
+
+# Why this change is being made (the "why", not the "what"). Wrap at 72-100
+# columns; the header itself must stay within 72 columns.
+
+# Allowed prefixes:
+#   App      application / executable (apps/)
+#   Lib      library (src/, znx)
+#   Render   rendering subsystem
+#   Math     math and geometry
+#   Test     tests
+#   Docs     documentation
+#   Build    build system (CMake, Conan, presets)
+#   CI       continuous integration
+#   Repo     repository meta (tooling, hooks, config)
+#   Deps     dependency updates
+#   Release  releases and versioning
+#
+# Example:
+#   Render: add perspective-correct texture sampling

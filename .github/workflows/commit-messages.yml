@@ -1,0 +1,53 @@
+# Enforces the commit message convention on pull requests.
+#
+# GitHub.com has no user-configurable pre-receive hook, so this job is the
+# server-side gate: make it a required status check in
+# Settings -> Branches -> Branch protection rules for your default branch.
+#
+# It validates both the pull request title (which becomes the squash-merge
+# commit message) and every commit in the PR. The rules live in
+# scripts/commit_msg.py, the same script used by the local commit-msg hook.
+name: commit messages
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  commit-messages:
+    name: commit messages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate pull request title
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: printf '%s\n' "$PR_TITLE" | python3 scripts/commit_msg.py --stdin
+
+      - name: Validate pull request commits
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -uo pipefail
+          status=0
+          while IFS= read -r sha; do
+            [ -n "$sha" ] || continue
+            echo "checking $(git log -1 --format='%h %s' "$sha")"
+            if ! git log -1 --format=%B "$sha" | python3 scripts/commit_msg.py --stdin; then
+              status=1
+            fi
+          done < <(git rev-list "$BASE_SHA..$HEAD_SHA")
+          exit "$status"
