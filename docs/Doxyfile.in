@@ -1,0 +1,37 @@
+# Doxygen configuration for z3dsw (generated from Doxyfile.in by CMake).
+# Only non-default values are listed; everything else uses Doxygen defaults.
+
+PROJECT_NAME           = "@PROJECT_NAME@"
+PROJECT_NUMBER         = "@PROJECT_VERSION@"
+PROJECT_BRIEF          = "@PROJECT_DESCRIPTION@"
+OUTPUT_DIRECTORY       = "@Z3D_DOXYGEN_OUTPUT_DIR@"
+
+INPUT                  = @Z3D_DOXYGEN_INPUT@
+RECURSIVE              = YES
+FILE_PATTERNS          = *.h *.hh *.hpp *.hxx *.c *.cc *.cpp *.cxx *.md
+EXCLUDE                = */build/* */cmake-build-*/*
+USE_MDFILE_AS_MAINPAGE = "@CMAKE_CURRENT_SOURCE_DIR@/docs/index.md"
+
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = NO
+EXTRACT_STATIC         = YES
+HIDE_UNDOC_MEMBERS     = NO
+
+GENERATE_HTML          = @Z3D_DOXYGEN_GENERATE_HTML@
+HTML_OUTPUT            = html
+GENERATE_XML           = @Z3D_DOXYGEN_GENERATE_XML@
+XML_OUTPUT             = xml
+GENERATE_LATEX         = NO
+
+QUIET                  = NO
+WARNINGS               = YES
+WARN_IF_UNDOCUMENTED   = YES
+WARN_IF_DOC_ERROR      = YES
+WARN_NO_PARAMDOC       = NO
+WARN_AS_ERROR          = @Z3D_DOXYGEN_WARN_AS_ERROR@
+WARN_LOGFILE           = @Z3D_DOXYGEN_WARN_LOGFILE@
+
+HAVE_DOT               = NO
+GENERATE_TREEVIEW      = YES
+DISABLE_INDEX          = NO
+FULL_SIDEBAR           = NO

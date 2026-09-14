@@ -1,0 +1,9 @@
+# Python dependencies for the documentation build (Sphinx + Breathe).
+# Install into a virtualenv, then build with the CMake 'docs-sphinx' target:
+#   python3 -m venv .venv-docs && . .venv-docs/bin/activate
+#   pip install -r docs/requirements.txt
+# Note: Doxygen must also be installed (brew install doxygen / apt install doxygen).
+sphinx>=7.2
+breathe>=4.35
+myst-parser>=2.0
+furo>=2024.1.29

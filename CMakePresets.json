@@ -1,0 +1,73 @@
+{
+  "version": 4,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 25,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "Z3D_ENABLE_TESTING": "ON",
+        "Z3D_ENABLE_FORMAT": "ON",
+        "Z3D_ENABLE_DOCS": "ON",
+        "Z3D_ENABLE_CCACHE": "ON"
+      }
+    },
+    {
+      "name": "dev",
+      "displayName": "Dev (Debug + clang-tidy + ASan/UBSan)",
+      "description": "Debug build with clang-tidy and Address/UndefinedBehavior sanitizers enabled.",
+      "inherits": "base",
+      "toolchainFile": "${sourceDir}/build/conan/Debug/conan_toolchain.cmake",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "Z3D_ENABLE_CLANG_TIDY": "ON",
+        "Z3D_ENABLE_SANITIZER_ADDRESS": "ON",
+        "Z3D_ENABLE_SANITIZER_UNDEFINED": "ON"
+      }
+    },
+    {
+      "name": "release",
+      "displayName": "Release",
+      "description": "Optimized Release build with link-time optimization.",
+      "inherits": "base",
+      "toolchainFile": "${sourceDir}/build/conan/Release/conan_toolchain.cmake",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "Z3D_ENABLE_IPO": "ON"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "dev",
+      "configurePreset": "dev"
+    },
+    {
+      "name": "release",
+      "configurePreset": "release"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "dev",
+      "configurePreset": "dev",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "release",
+      "configurePreset": "release",
+      "output": {
+        "outputOnFailure": true
+      }
+    }
+  ]
+}

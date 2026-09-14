@@ -1,0 +1,28 @@
+# z3dsw C/C++ style - vertically compact (flow-style) clang-format config.
+# K&R/attach braces, tabs, 120 columns, namespaces not indented.
+# Apply:  cmake --build build --target format
+# Verify: cmake --build build --target format-check
+---
+Language: Cpp
+BasedOnStyle: LLVM
+UseTab: Always
+TabWidth: 4
+IndentWidth: 4
+ColumnLimit: 120
+AccessModifierOffset: -4
+NamespaceIndentation: None
+PointerAlignment: Left
+MaxEmptyLinesToKeep: 2
+InsertNewlineAtEOF: true
+IndentCaseBlocks: true
+BreakConstructorInitializers: AfterColon
+BreakTemplateDeclarations: Yes
+AlignConsecutiveAssignments: None
+AlignConsecutiveDeclarations: None
+AlignOperands: DontAlign
+AlignTrailingComments: true
+BreakBeforeBraces: Custom
+BraceWrapping: {AfterCaseLabel: false, AfterClass: false, AfterControlStatement: Never, AfterEnum: false, AfterFunction: false, AfterNamespace: false, AfterStruct: false, AfterUnion: false, AfterExternBlock: false, BeforeCatch: false, BeforeElse: false, BeforeLambdaBody: false, BeforeWhile: false, SplitEmptyFunction: false, SplitEmptyRecord: false, SplitEmptyNamespace: false}
+IncludeCategories: [{Regex: '^<.*', Priority: 1}, {Regex: '^".*', Priority: 2}, {Regex: '.*', Priority: 3}]
+IncludeIsMainRegex: '([-_](test|unittest))?$'
+...

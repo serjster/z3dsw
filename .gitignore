@@ -1,0 +1,29 @@
+# --- Build trees -----------------------------------------------------------
+build/
+cmake-build-*/
+cmake-build-debug/
+out/
+
+# --- CMake -----------------------------------------------------------------
+CMakeUserPresets.json
+CMakeCache.txt
+CMakeFiles/
+compile_commands.json
+
+# --- Conan -----------------------------------------------------------------
+.conan/
+*.conan
+
+# --- Python / tooling ------------------------------------------------------
+.venv/
+.venv-docs/
+__pycache__/
+*.py[cod]
+
+# --- Documentation output --------------------------------------------------
+docs/_build/
+
+# --- Editors / OS ----------------------------------------------------------
+.idea/
+.vscode/
+.DS_Store
