@@ -79,9 +79,16 @@ function(z3d_prepare_coverage)
 		COMMENT "z3dsw: coverage report -> ${_report_dir}/index.html"
 		VERBATIM)
 
-	# CTest step: registered as the cleanup of a fixture that every test
-	# requires, so it runs last and the report is always regenerated as part of
-	# the test run.
+	# The tests require a fixture with two steps: `coverage-clean` (setup) wipes
+	# stale .gcda before anything runs, and `coverage-report` (cleanup) writes
+	# the report after every test has finished.
+	add_test(NAME coverage-clean
+			 COMMAND "${CMAKE_COMMAND}" "-DBUILD_DIR=${CMAKE_BINARY_DIR}" -P
+					 "${CMAKE_CURRENT_FUNCTION_LIST_DIR}/CoverageClean.cmake")
+	set_tests_properties(
+		coverage-clean PROPERTIES FIXTURES_SETUP z3d_coverage WORKING_DIRECTORY
+								  "${CMAKE_BINARY_DIR}")
+
 	add_test(NAME coverage-report COMMAND "${Z3D_GCOVR}" ${_gcovr_args})
 	set_tests_properties(
 		coverage-report PROPERTIES FIXTURES_CLEANUP z3d_coverage
